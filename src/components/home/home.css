@@ -1,0 +1,26 @@
+.home_achievements {
+  background-image: url("/public/Sources/images/whoarewe/photo-1503708928676-1cb796a0891e.jpg"),
+    url("/public/Sources/images/whoarewe/gray.jpg");
+
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 40px 0;
+}
+.white_back {
+  background-color: white;
+  border-radius: 2px;
+  padding: 20px 10px;
+  border: 0.3px solid #ababab;
+}
+.white_back img {
+  width: 70%;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+}
+.white_back h6 {
+  font-weight: 600;
+  color: #0d2e61;
+}

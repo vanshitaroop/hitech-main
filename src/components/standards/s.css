@@ -1,0 +1,130 @@
+.zoom {
+  transition: 0.5s;
+  z-index: -1000;
+  padding: 10px 12px;
+}
+.zoom:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale3d(1.1, 1.1, 1);
+  z-index: 1000;
+  transition: 0.5s;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: #0d2e61;
+  background: #0d2e61; /* Black see-through */
+  color: #f1f1f1;
+  width: 100%;
+  transition: 0.5s ease;
+  opacity: 0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.img:hover .overlay {
+  opacity: 1;
+}
+
+.figure {
+  position: relative;
+  overflow: hidden;
+}
+
+.figure .service_line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: table;
+  padding: 0 20px;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.figure .service_line:before {
+  position: absolute;
+  display: block;
+  width: 0%;
+  height: 18%;
+  content: "";
+  background-color: #0d2e61;
+  opacity: 0.8;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-tranisition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.figure .service_line:after {
+  position: absolute;
+  display: block;
+  width: 0%;
+  height: 18%;
+  content: "";
+  background-color: #0d2e61;
+  opacity: 0.8;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-tranisition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+
+.figure .service_line:before {
+  right: -139%;
+}
+
+.figure .service_line:after {
+  left: -139%;
+}
+
+.figure h3 {
+  color: #1d1d1d;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0;
+  opacity: 0;
+}
+
+.figure h3 span {
+  font-weight: 700;
+  display: block;
+  color: #03446a;
+}
+
+/* .figure a {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+} */
+
+.figure:hover img,
+.figure.hover img {
+  opacity: 0.3;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.figure:hover h3,
+.figure.hover h3 {
+  opacity: 1;
+}
+
+.figure:hover .service_line,
+.figure.hover .service_line {
+  opacity: 1;
+}
+
+.figure:hover .service_line:before,
+.figure.hover .service_line:before,
+.figure:hover .service_line:after,
+.figure.hover .service_line:after {
+  width: 143%;
+}
