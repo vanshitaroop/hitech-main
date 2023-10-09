@@ -1,21 +1,32 @@
 {
   "files": {
-    "main.css": "/static/css/main.1699a36c.css",
-    "main.js": "/static/js/main.c8722d8f.js",
+    "main.css": "/static/css/main.4cb735b2.css",
+    "main.js": "/static/js/main.efb95cbc.js",
     "static/media/value-parameterbg.png": "/static/media/value-parameterbg.e3085d4ac63d1ee51b6a.png",
     "static/media/footer_bg.png": "/static/media/footer_bg.2f92be3bacc6db5210b5.png",
     "static/media/background2.png": "/static/media/background2.a190cec2a9b348823009.png",
+    "static/media/photo-1503708928676-1cb796a0891e.jpg": "/static/media/photo-1503708928676-1cb796a0891e.eab33b7200765c33c0fb.jpg",
     "static/media/background1.png": "/static/media/background1.132ac1ff1fe7b90bf51d.png",
+    "static/media/7.avif": "/static/media/7.062648ac013a08cb857a.avif",
+    "static/media/6.jpg": "/static/media/6.8da08b2fde0064122085.jpg",
+    "static/media/gray.jpg": "/static/media/gray.45fa49ffd7ace7702299.jpg",
+    "static/media/workforce.png": "/static/media/workforce.d95bb1c845d559343239.png",
+    "static/media/quality.png": "/static/media/quality.dc5c470848afab7adc2d.png",
+    "static/media/construction.png": "/static/media/construction.6c50364ac422d04ef3b3.png",
+    "static/media/team.png": "/static/media/team.35ab6a765a497679dce1.png",
+    "static/media/completed-task.png": "/static/media/completed-task.446611e9d914fdb967c7.png",
+    "static/media/building.png": "/static/media/building.46b533614ccd1a937dcf.png",
+    "static/media/hitech_logo.png": "/static/media/hitech_logo.441af66c973ea5b6921a.png",
     "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "index.html": "/index.html",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
-    "main.1699a36c.css.map": "/static/css/main.1699a36c.css.map",
-    "main.c8722d8f.js.map": "/static/js/main.c8722d8f.js.map"
+    "main.4cb735b2.css.map": "/static/css/main.4cb735b2.css.map",
+    "main.efb95cbc.js.map": "/static/js/main.efb95cbc.js.map"
   },
   "entrypoints": [
-    "static/css/main.1699a36c.css",
-    "static/js/main.c8722d8f.js"
+    "static/css/main.4cb735b2.css",
+    "static/js/main.efb95cbc.js"
   ]
 }
