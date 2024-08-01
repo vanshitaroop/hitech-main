@@ -170,7 +170,7 @@ const Services = () => {
         src="Sources/images/bg/a12.jpg"
         alt="404 -Not Given"
         className="about_img"
-        //style={{ marginLeft: window.innerWidth > 1355 ? "5%" : "" }}
+      //style={{ marginLeft: window.innerWidth > 1355 ? "5%" : "" }}
       />
 
       <div className="services-page-bg">
@@ -289,7 +289,7 @@ const Services = () => {
                     sm={24}
                     xs={24}
                     className="my-auto"
-                    // style={{ display: "flex", justifyContent: "center" }}
+                  // style={{ display: "flex", justifyContent: "center" }}
                   >
                     <div>
                       <Slider {...settings}>

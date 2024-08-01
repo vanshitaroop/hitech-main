@@ -10,30 +10,16 @@ import TextArea from "antd/lib/input/TextArea";
 import { UploadOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import Header from "../header/header";
-import emailjs from "@emailjs/browser";
-const email = require;
+import emailjs from '@emailjs/browser';
+import img1 from "../careers/173.jpg"
+import img2 from "../careers/174.jpg"
+import { ContactUs } from "../contactForm/contact";
 const Careers = () => {
   const form = useRef();
 
-  const sendEmail = (e) => {
-    e.preventDefault();
 
-    emailjs
-      .sendForm(
-        "service_n0ye8jh",
-        "template_9rh8c7p",
-        form.current,
-        "9gzOeaMNf6BF5M1jC"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-  };
+
+
   function scrollToForm() {
     // Get the heading element by its 'id'
     const headingElement = document.getElementById("form_heading");
@@ -51,7 +37,7 @@ const Careers = () => {
         src="Sources/images/career/careers.JPG"
         alt="404 -Not Given"
         className="about_img"
-        // style={{ marginLeft: window.innerWidth > 1355 ? "5%" : "" }}
+      // style={{ marginLeft: window.innerWidth > 1355 ? "5%" : "" }}
       />
 
       <div className="about-us-bg">
@@ -102,7 +88,7 @@ const Careers = () => {
                   <div className="career_card">
                     <div className="content">
                       <Image
-                        src="Sources/images/career/184.png"
+                        src={img1}
                         alt="404 - Not Given"
                         className="pt-2"
                       />
@@ -132,7 +118,7 @@ const Careers = () => {
                   <div className="career_card">
                     <div className="content">
                       <Image
-                        src="Sources/images/career/185.png"
+                        src={img2}
                         alt="404 - Not Given"
                         className="pt-2"
                       />
@@ -150,66 +136,7 @@ const Careers = () => {
                   </div>
                 </div>
               </Col>
-              <Col
-                xxl={8}
-                lg={8}
-                md={12}
-                sm={24}
-                xs={24}
-                style={{ justifyContent: "center" }}
-              >
-                <div className="card_outer">
-                  <div className="career_card">
-                    <div className="content">
-                      <Image
-                        src="Sources/images/career/186.png"
-                        alt="404 - Not Given"
-                        className="pt-2"
-                      />
-                      <div className="career_text has-text-centered">
-                        <a onClick={scrollToForm}>
-                          <Space direction="horizontal">
-                            <p className="has-text-centered blue_color has-text-weight-semibold ">
-                              APPLY NOW
-                            </p>
-                            <MdArrowForwardIos className="arrow_icon blue_color" />
-                          </Space>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Col>
-              <Col
-                xxl={8}
-                lg={8}
-                md={12}
-                sm={24}
-                xs={24}
-                style={{ justifyContent: "center" }}
-              >
-                <div className="card_outer">
-                  <div className="career_card">
-                    <div className="content">
-                      <Image
-                        src="Sources/images/career/187.png"
-                        alt="404 - Not Given"
-                        className="pt-2"
-                      />
-                      <div className="career_text has-text-centered">
-                        <a onClick={scrollToForm}>
-                          <Space direction="horizontal">
-                            <p className="has-text-centered blue_color has-text-weight-semibold ">
-                              APPLY NOW
-                            </p>
-                            <MdArrowForwardIos className="arrow_icon blue_color" />
-                          </Space>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Col>
+
             </Row>
           </div>
           <div className="section_padding"></div>
@@ -355,7 +282,7 @@ const Careers = () => {
                     padding: "2.5rem",
                   }}
                 >
-                  {/* <Form ref={form} onSubmit={sendEmail}>
+                  <Form >
                     <Form.Item
                       className="form_hover"
                       name="name"
@@ -446,92 +373,8 @@ const Careers = () => {
                         Apply Now
                       </Button>
                     </Form.Item>
-                  </Form> */}
-                  <form ref={form} onSubmit={sendEmail} id="form_edit">
-                    <div className="form-item">
-                      {/* <label htmlFor="user_name">Name</label> */}
-                      <input
-                        type="text"
-                        id="user_name"
-                        name="user_name"
-                        className="form_input"
-                        required
-                        pattern="^[A-Za-z\s]+$"
-                        placeholder="Name"
-                      />
-                    </div>
-                    <div className="form-item">
-                      {/* <label htmlFor="user_email">Email</label> */}
-                      <input
-                        type="email"
-                        id="user_email"
-                        name="user_email"
-                        className="form_input"
-                        required
-                        pattern="^[A-Za-z0-9._-]+@[A-Za-z]+\.[A-Za-z]+$"
-                        placeholder="Your Email"
-                      />
-                    </div>
-
-                    <div className="form-item">
-                      {/* <label htmlFor="user_number">Mobile</label> */}
-                      <input
-                        type="tel"
-                        id="user_number"
-                        name="user_number"
-                        className="form_input"
-                        required
-                        pattern="^[0-9]{10}$"
-                        placeholder="Your Mobile"
-                      />
-                    </div>
-                    <div className="form-item">
-                      <input
-                        type="text"
-                        name="user_position"
-                        id="user_position"
-                        className="form_input"
-                        placeholder="Position"
-                      />
-                    </div>
-                    <div className="form-item">
-                      {/* <label htmlFor="message">Message</label> */}
-                      <textarea
-                        id="message"
-                        name="message"
-                        className="form_input"
-                        placeholder="Message"
-                      />
-                    </div>
-                    <div className="form-item">
-                      {/* <label htmlFor="resume">Upload Resume</label> */}
-                      <input
-                        className="doc_button"
-                        type="file"
-                        id="resume"
-                        name="resume"
-                        accept=".pdf,.doc,.docx"
-                      />
-                      <p
-                        style={{
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                          marginTop: "5px",
-                        }}
-                      >
-                        Maximum size 50kb
-                      </p>
-                    </div>
-                    <div className="form-item">
-                      <button
-                        type="submit"
-                        className="btn btn-color submit_button"
-                        value="Send"
-                      >
-                        Apply Now
-                      </button>
-                    </div>
-                  </form>
+                  </Form>
+                  {/* <ContactUs /> */}
                 </div>
               </Col>
             </Row>

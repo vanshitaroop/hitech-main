@@ -3,18 +3,32 @@ import React, { useState } from "react";
 import Header from "../header/header";
 
 const commerciallist = [
+ 
+  // {
+  //   src: "",
+  //   title:"Sharanam Metrolink",
+  //   content: "...",
+  //   client: "Sharanam Metrolink LLP",
+  //   location: "Khokhara, Ahmedabad",
+  //   projectSize: "4,91,032 Sq. ft.",
+  //   projectDes: "2 Floors, 12 Meters",
+  //   projectYear: "2020-Current",
+  //   architect: "99 Studio",
+  //   consultant: "Shreeji Consultant",
+  //   scope: "Civil Construction with finishing work of Commercial Building of B+G+4 storey (7 Blocks) and B+G+5 storey (2 Blocks).",
+  // },
   {
     src: "Sources/images/prouctlist/commercial/ongoing/1-1.jpeg",
     title: "SHARANAM SQUARE",
     content: "...",
     client: "SHARANAM SQUARE LLP",
     location: "Khokhara, Ahmedabad",
-    projectSize: "275,000 Sq. ft.",
+    projectSize: "2,75,000 Sq. ft.",
     projectDes: "2 Floors, 12 Meters",
     projectYear: "2022-Current",
     architect: "99 Studio",
     consultant: "Shreeji Consultant",
-    scope: "RCC Framework, Masonry ,Plaster,Finishing Work.",
+    scope: "Civil Construction with Finishing Work of commercial building of B+G+2 storey (2 Blocks).",
   },
   {
     src: "Sources/images/prouctlist/commercial/ongoing/1-3.png",
@@ -27,21 +41,9 @@ const commerciallist = [
     projectYear: "2022-Current",
     architect: "Neha Consultants",
     consultant: "J W Consultants LLP",
-    scope: "RCC Framework, Masonry ,Plaster.",
+    scope: "Civil works, Masonry & Plaster, and Waterproofing.",
   },
-  {
-    src: "Sources/images/prouctlist/commercial/ongoing/1-1.jpg",
-    title: "THE PROFIT",
-    content: "...",
-    client: "The Building Company",
-    location: "Adajan, Surat",
-    projectSize: "159,174 Sq. ft.",
-    projectDes: "10 Floors, 45 Meters",
-    projectYear: "2022-Current",
-    architect: "Tathastu",
-    consultant: "SNV Engineers",
-    scope: " RCC Framework, Masonry,Plaster.",
-  },
+ 
   {
     src: "Sources/images/prouctlist/commercial/ongoing/1-4.png",
     title: "FLEXONE",
@@ -71,6 +73,19 @@ const commerciallist = [
   },
 ];
 const commercialcompleted = [
+  {
+    src: "Sources/images/prouctlist/commercial/ongoing/1-1.jpg",
+    title: "THE PROFIT",
+    content: "...",
+    client: "The Building Company",
+    location: "Adajan, Surat",
+    projectSize: "159,174 Sq. ft.",
+    projectDes: "10 Floors, 45 Meters",
+    projectYear: "2022",
+    architect: "Tathastu",
+    consultant: "SNV Engineers",
+    scope: " RCC Framework, Masonry,Plaster.",
+  },
   // {
   //   src: "Sources/images/prouctlist/commercial/ongoing/2.png",
   //   title: "TORRENT POWER “B” STATION",
