@@ -14,6 +14,7 @@ import emailjs from '@emailjs/browser';
 import img1 from "../careers/173.jpg"
 import img2 from "../careers/174.jpg"
 import { ContactUs } from "../contactForm/contact";
+import ApplicationForm from "../ApplicationForm/ApplicationForm";
 const Careers = () => {
   const form = useRef();
 
@@ -282,7 +283,7 @@ const Careers = () => {
                     padding: "2.5rem",
                   }}
                 >
-                  <Form >
+                  {/* <Form >
                     <Form.Item
                       className="form_hover"
                       name="name"
@@ -373,7 +374,8 @@ const Careers = () => {
                         Apply Now
                       </Button>
                     </Form.Item>
-                  </Form>
+                  </Form> */}
+                  <ApplicationForm/>
                   {/* <ContactUs /> */}
                 </div>
               </Col>

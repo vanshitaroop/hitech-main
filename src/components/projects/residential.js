@@ -1,7 +1,6 @@
 import { Col, Image, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import Header from "../header/header";
-
 const industriallist = [
   {
     src: "",
@@ -18,7 +17,7 @@ const industriallist = [
     scope: "RCC Frame works, Block work, Plaster work for Residential Building 3B+G+22 Floors (5 Towers).",
   },
   {
-    src: "",
+    src: "Sources/images/prouctlist/residential/ongoing/supercity.jpeg",
     title: "Supercity Luxuria 3",
     content: "...",
     segment: "Residential",
