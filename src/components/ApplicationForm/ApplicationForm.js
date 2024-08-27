@@ -9,64 +9,69 @@ const ApplicationForm = () => {
     const [formData, setFormData] = useState({});
     const displayRender = (labels) => labels[labels.length - 1];
 
-    const onChangePhoto = async (options) => {
-        const { file, onSuccess, onError } = options;
-
-        if (file.status === 'uploading') {
-            setUploading(true);
-            return;
-        }
-
-        if (file.status === 'done') {
-            message.success(`${file.name} file uploaded successfully.`);
-            onSuccess();
-            setUploading(false);
-            return;
-        }
-
-        if (file.status === 'error') {
-            message.error(`Upload failed: ${file.error.message}`);
-            onError(file.error);
-            setUploading(false);
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('file', file.originFileObj);
-
-        try {
-            const response = await fetch('https://napi.prepseed.com/chats/uploadPolicy', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                message.success(`${file.name} file uploaded successfully.`);
-                onSuccess(data); // Call onSuccess with the response data if needed
-            } else {
-                const errorData = await response.json();
-                message.error(`Upload failed: ${errorData.message || 'Unknown error'}`);
-                onError(new Error(errorData.message || 'Unknown error'));
-            }
-        } catch (error) {
-            message.error(`Upload failed: ${error.message}`);
-            onError(error);
-        } finally {
-            setUploading(false);
-        }
+    // const onChangePhoto = async (options) => {
+    //     const { file, onSuccess, onError } = options;
+    
+    //     if (file.status === 'uploading') {
+    //         setUploading(true);
+    //         return;
+    //     }
+    
+    //     if (file.status === 'done') {
+    //         message.success(`${file.name} file uploaded successfully.`);
+    //         onSuccess();
+    //         setUploading(false);
+    //         return;
+    //     }
+    
+    //     if (file.status === 'error') {
+    //         message.error(`Upload failed: ${file.error.message}`);
+    //         onError(file.error);
+    //         setUploading(false);
+    //         return;
+    //     }
+    
+    //     const formData = new FormData();
+    //     formData.append('file', file.originFileObj);
+    
+    //     try {
+    //         const response = await fetch('https://napi.prepseed.com/chats/uploadPolicy', {
+    //             method: 'POST',
+    //             body: formData,
+    //         });
+    
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             console.log('Upload successful:', data); // Log the data here
+    //             message.success(`${file.name} file uploaded successfully.`);
+    //             onSuccess(data); // Call onSuccess with the response data if needed
+    //         } else {
+    //             const errorData = await response.json();
+    //             message.error(`Upload failed: ${errorData.message || 'Unknown error'}`);
+    //             onError(new Error(errorData.message || 'Unknown error'));
+    //         }
+    //     } catch (error) {
+    //         message.error(`Upload failed: ${error.message}`);
+    //         onError(error);
+    //     } finally {
+    //         setUploading(false);
+    //     }
+    // };
+    const handleUploadChange = (info) => {
+        const fileType = info.file.type.split('/')[1]; 
+        console.log('File Type:', fileType);
     };
 
-    const handleSubmit = async () => {
-        if (formData) {
+    const handleSubmit = async (data) => {
+        if (data) {
+            console.log("Data to be sent:", data);
             try {
                 const response = await fetch('https://napi.prepseed.com/hightech/addApplication', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(formData), // Convert formData to JSON
-                
+                    body: JSON.stringify(data), // Convert formData to JSON
                 });
 
                 if (response.ok) {
@@ -520,270 +525,260 @@ const ApplicationForm = () => {
             label: 'Others',
         }
     ]
-    const [currentLocationValue, setCurrentLocationValue] = useState();
-    const [homeValue, setHomeValue] = useState();
-    const onChangeCurrentLocation = (currentLocationValue) => {
-        setCurrentLocationValue(currentLocationValue);
-    };
-    const onChangeHome = (homeValue) => {
-        setHomeValue(homeValue);
-    };
-    const handleDepartmentChange = (value) => {
-        console.log(`selected ${value}`);
-    };
-    const onPopupScroll = (e) => {
-        console.log('onPopupScroll', e);
-    };
-    const onChange = (date, dateString) => {
-        console.log(date, dateString);
-    };
-    const onChangeExperience = (value) => {
-        console.log('changed', value);
-    };
-    const onChangeCurrentCTC = (value) => {
-        console.log('changed', value);
-    };
-    const onChangeExpectedCTC = (value) => {
-        console.log('changed', value);
-    };
-    const onChangeNoticePeriod = (value) => {
-        console.log('changed', value);
-    };
 
-    const onGenderChange = (value) => {
-        switch (value) {
-            case 'Male':
-                form.setFieldsValue({
-                    note: 'Hi, man!',
-                });
-                break;
-            case 'Female':
-                form.setFieldsValue({
-                    note: 'Hi, lady!',
-                });
-                break;
-            case 'Other':
-                form.setFieldsValue({
-                    note: 'Hi there!',
-                });
-                break;
-            default:
-                break;
-        }
-    };
 
     const handleFinish = (values) => {
-        console.log('Form Data:', values);
-        setFormData(values)
+        // Function to format date in YYYY-MM-DD
+        const formatDate = (dateString) => {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString; // If invalid date, return original string
+            return date.toISOString().split('T')[0]; // Return in YYYY-MM-DD format
+        };
+
+        // Convert all values to strings and format dob
+        const processedValues = Object.fromEntries(
+            Object.entries(values).map(([key, value]) => {
+                if (key === 'dob') {
+                    return [key, formatDate(value)]; // Format dob specifically
+                }
+                if (Array.isArray(value)) {
+                    return [key, value.join(',')]; // Convert arrays to comma-separated strings
+                }
+                if (typeof value === 'object' && value !== null) {
+                    return [key, JSON.stringify(value)]; // Convert objects to JSON strings
+                }
+                return [key, String(value)]; // Convert other values to strings
+            })
+        );
+
+        console.log('Processed Form Data:', processedValues);
+        setFormData(processedValues);
+        handleSubmit(processedValues); // Pass the processed data to the handleSubmit function
     };
 
     return (
         <>
             <div id="ApplicationForm">
                 <Form
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
+                    labelCol={{ span: 10 }}
+                    wrapperCol={{ span: 14 }}
                     layout="horizontal"
-                    style={{
-                        maxWidth: 10000,
-                    }}
-                    onFinish={handleFinish} // Add onFinish to handle form submission
+                    style={{ maxWidth: 10000 }}
+                    onFinish={handleFinish}
                 >
-                    <Form.Item
-                        label="Department Applied For"
-                        name="departmentAppliedFor" // Add name for field binding
-                        rules={[{ required: true, message: 'Please select a department' }]} // Validation rules
-                    >
-                        <Select>
-                            <Select.Option value="department1">Department 1</Select.Option>
-                            <Select.Option value="department2">Department 2</Select.Option>
-                            <Select.Option value="department3">Department 3</Select.Option>
-                            <Select.Option value="department4">Department 4</Select.Option>
-                            <Select.Option value="department5">Department 5</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Position Applied For"
-                        name="positionAppliedFor"
-                        rules={[{ required: true, message: 'Please select a position' }]}
-                    >
-                        <Select>
-                            <Select.Option value="position1">Position 1</Select.Option>
-                            <Select.Option value="position2">Position 2</Select.Option>
-                            <Select.Option value="position3">Position 3</Select.Option>
-                            <Select.Option value="position4">Position 4</Select.Option>
-                            <Select.Option value="position5">Position 5</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item label="Skill" name="skill">
-                        <Input placeholder="Skills" />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Name"
-                        name="name"
-                        rules={[{ required: true, message: 'Please enter your name' }]}
-                    >
-                        <Input placeholder="Your Name Here" />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="gender"
-                        label="Gender"
-                    >
-                        <Select placeholder="Select your gender">
-                            <Select.Option value="Male">Male</Select.Option>
-                            <Select.Option value="Female">Female</Select.Option>
-                            <Select.Option value="Other">Other</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="DOB"
-                        name="dob"
-                        rules={[{ required: true, message: 'Please select your date of birth' }]}
-                    >
-                        <DatePicker />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Contact Number"
-                        name="contactNumber"
-                        rules={[{ required: true, message: 'Please enter your contact number' }]}
-                    >
-                        <Input placeholder="Enter your Contact Number" />
-                    </Form.Item>
-
-                    <Form.Item label="Email ID" name="emailId">
-                        <Input placeholder="Enter your Email ID" />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Qualification"
-                        name="qualification"
-                        rules={[{ required: true, message: 'Please select your qualification' }]}
-                    >
-                        <Select>
-                            <Select.Option value="qualification1">Qualification 1</Select.Option>
-                            <Select.Option value="qualification2">Qualification 2</Select.Option>
-                            <Select.Option value="qualification3">Qualification 3</Select.Option>
-                            <Select.Option value="qualification4">Qualification 4</Select.Option>
-                            <Select.Option value="qualification5">Qualification 5</Select.Option>
-                        </Select>
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Current Company Name"
-                        name="currentCompanyName"
-                        rules={[{ required: true, message: 'Please enter your current company name' }]}
-                    >
-                        <Input placeholder="Enter your Current Company Name" />
-                    </Form.Item>
-
-                    <Form.Item label="Current Designation" name="currentDesignation">
-                        <Input placeholder="Enter your Current Company Designation" />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Total Experience (In Years)"
-                        name="totalExperience"
-                        rules={[{ required: true, message: 'Please enter your total experience' }]}
-                    >
-                        <InputNumber min={1} max={10} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Current Location"
-                        name="currentLocation"
-                        rules={[{ required: true, message: 'Please select your current location' }]}
-                    >
-                        <Cascader options={treeCurrentLocationData} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Home"
-                        name="home"
-                        rules={[{ required: true, message: 'Please select your home location' }]}
-                    >
-                        <TreeSelect
-                            showSearch
-                            style={{
-                                width: '100%',
-                            }}
-                            dropdownStyle={{
-                                maxHeight: 400,
-                                overflow: 'auto',
-                            }}
-                            treeDefaultExpandAll
-                            treeData={treeHomeData}
-                        />
-                    </Form.Item>
-
-                    <Form.Item label="Current CTC (Per Annum)" name="currentCTC">
-                        <InputNumber style={{ width: '100%' }} min={1} max={100} />
-                    </Form.Item>
-
-                    <Form.Item label="Expected CTC (Per Annum)" name="expectedCTC">
-                        <InputNumber style={{ width: '100%' }} min={1} max={10} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Notice Period (In Days)"
-                        name="noticePeriod"
-                        rules={[{ required: true, message: 'Please enter your notice period' }]}
-                    >
-                        <InputNumber style={{ width: '100%' }} min={1} max={30} />
-                    </Form.Item>
-
-                    <Form.Item label="Reference" name="reference">
-                        <Cascader options={referenceData} />
-                    </Form.Item>
-
-                    <Form.Item label="Reference of friend (if any)" name="referenceOfFriend">
-                        <Input placeholder="Enter your friend name here" />
-                    </Form.Item>
-
-                    <Form.Item label="Reference of others (if any)" name="referenceOfOthers">
-                        <Input placeholder="Enter reference here if you selected others option" />
-                    </Form.Item>
-
-                    <Form.Item label="Photo Upload" name="photo">
-                        <Upload
-                            customRequest={onChangePhoto}  // Use the custom request handler
-                            showUploadList={false}
-                            beforeUpload={() => false}  // Prevent automatic upload
+                    <div className="Adjust">
+                        <Form.Item
+                            label="Department Applied For"
+                            name="departmentAppliedFor"
+                            rules={[{ required: true, message: 'Please select a department' }]}
                         >
-                            <Button icon={<UploadOutlined />}>
-                                Click to Upload (PNG/JPG Only)
-                            </Button>
-                        </Upload>
-                    </Form.Item>
+                            <Select>
+                                <Select.Option value="department1">Department 1</Select.Option>
+                                <Select.Option value="department2">Department 2</Select.Option>
+                                <Select.Option value="department3">Department 3</Select.Option>
+                                <Select.Option value="department4">Department 4</Select.Option>
+                                <Select.Option value="department5">Department 5</Select.Option>
+                            </Select>
+                        </Form.Item>
 
+                        <Form.Item
+                            label="Position Applied For"
+                            name="positionAppliedFor"
+                            rules={[{ required: true, message: 'Please select a position' }]}
+                        >
+                            <Select>
+                                <Select.Option value="Project Managers">Project Managers</Select.Option>
+                                <Select.Option value="Sr. Engineers">Sr. Engineers</Select.Option>
+                                <Select.Option value="Assistant Engineers">Assistant Engineers</Select.Option>
+                                <Select.Option value="Jr. Engineer">Jr. Engineer</Select.Option>
+                                <Select.Option value="Supervisors">Supervisors</Select.Option>
+                            </Select>
+                        </Form.Item>
+                    </div>
 
-                    <Form.Item label="Resume Upload" name="resume">
-                        <Upload>
-                            <Button icon={<UploadOutlined />}>
-                                Click to Upload
-                            </Button>
-                        </Upload>
-                    </Form.Item>
+                    <div className="Adjust">
+                        <Form.Item label="Skill" name="skill">
+                            <Input placeholder="Skills" />
+                        </Form.Item>
 
-                    <Form.Item label="Remarks (If any)" name="remarks">
-                        <Input placeholder="Enter your Remarks" />
-                    </Form.Item>
+                        <Form.Item
+                            label="Name"
+                            name="name"
+                            rules={[{ required: true, message: 'Please enter your name' }]}
+                        >
+                            <Input placeholder="Your Name Here" />
+                        </Form.Item>
 
+                    </div>
+                    <div className="Adjust">
+                        <Form.Item
+                            name="gender"
+                            label="Gender"
+                        >
+                            <Select placeholder="Select your gender">
+                                <Select.Option value="Male">Male</Select.Option>
+                                <Select.Option value="Female">Female</Select.Option>
+                                <Select.Option value="Other">Other</Select.Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                            label="DOB"
+                            name="dob"
+                            rules={[{ required: true, message: 'Please select your date of birth' }]}
+                        >
+                            <DatePicker />
+                        </Form.Item>
+                    </div>
+
+                    <div className="Adjust">
+                        <Form.Item
+                            label="Contact Number"
+                            name="contactNumber"
+                            rules={[{ required: true, message: 'Please enter your contact number' }]}
+                        >
+                            <Input placeholder="Enter your Contact Number" />
+                        </Form.Item>
+
+                        <Form.Item label="Email ID" name="emailId">
+                            <Input placeholder="Enter your Email ID" />
+                        </Form.Item>
+                    </div>
+
+                    <div className="Adjust">
+                        <Form.Item
+                            label="Qualification"
+                            name="qualification"
+                            rules={[{ required: true, message: 'Please select your qualification' }]}
+                        >
+                            <Select>
+                                <Select.Option value="qualification1">Qualification 1</Select.Option>
+                                <Select.Option value="qualification2">Qualification 2</Select.Option>
+                                <Select.Option value="qualification3">Qualification 3</Select.Option>
+                                <Select.Option value="qualification4">Qualification 4</Select.Option>
+                                <Select.Option value="qualification5">Qualification 5</Select.Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Current Company Name"
+                            name="currentCompanyName"
+                            rules={[{ required: true, message: 'Please enter your current company name' }]}
+                        >
+                            <Input placeholder="Enter your Current Company Name" />
+                        </Form.Item>
+                    </div>
+
+                    <div className="Adjust">
+                        <Form.Item label="Current Designation" name="currentDesignation">
+                            <Input placeholder="Enter your Current Company Designation" />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Total Experience (In Years)"
+                            name="totalExperience"
+                            rules={[{ required: true, message: 'Please enter your total experience' }]}
+                        >
+                            <InputNumber min={1} max={10} />
+                        </Form.Item>
+                    </div>
+
+                    <div className="Adjust">
+                        <Form.Item
+                            label="Current Location"
+                            name="currentLocation"
+                            rules={[{ required: true, message: 'Please select your current location' }]}
+                        >
+                            <Cascader options={treeCurrentLocationData} />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Home"
+                            name="home"
+                            rules={[{ required: true, message: 'Please select your home location' }]}
+                        >
+                            <TreeSelect
+                                showSearch
+                                style={{ width: '100%' }}
+                                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                treeDefaultExpandAll
+                                treeData={treeHomeData}
+                            />
+                        </Form.Item>
+                    </div>
+
+                    <div className="Adjust">
+                        <Form.Item label="Current CTC (Per Annum)" name="currentCTC">
+                            <InputNumber style={{ width: '100%' }} min={1} max={100} />
+                        </Form.Item>
+
+                        <Form.Item label="Expected CTC (Per Annum)" name="expectedCTC">
+                            <InputNumber style={{ width: '100%' }} min={1} max={10} />
+                        </Form.Item>
+                    </div>
+
+                    <div className="Adjust">
+                        <Form.Item
+                            label="Notice Period (In Days)"
+                            name="noticePeriod"
+                            rules={[{ required: true, message: 'Please enter your notice period' }]}
+                        >
+                            <InputNumber style={{ width: '100%' }} min={1} max={30} />
+                        </Form.Item>
+
+                        <Form.Item label="Reference" name="reference">
+                            <Cascader options={referenceData} />
+                        </Form.Item>
+                    </div>
+
+                    <div className="Adjust">
+                        <Form.Item label="Reference of friend (if any)" name="referenceOfFriend">
+                            <Input placeholder="Enter your friend name here" />
+                        </Form.Item>
+
+                        <Form.Item label="Reference of others (if any)" name="referenceOfOthers">
+                            <Input placeholder="Enter reference here if you selected others option" />
+                        </Form.Item>
+
+                    </div>
+                    <div className="Adjust">
+                    <Form.Item label="Photo Upload" name="photo">
+            <Upload
+                showUploadList={false}
+                beforeUpload={() => false}  // Prevent automatic upload
+                onChange={handleUploadChange}
+            >
+                <Button icon={<UploadOutlined />}>
+                    Click to Upload (PNG/JPG Only)
+                </Button>
+            </Upload>
+        </Form.Item>
+
+                        <Form.Item label="Resume Upload" name="resume">
+                            <Upload>
+                                <Button icon={<UploadOutlined />}>
+                                    Click to Upload
+                                </Button>
+                            </Upload>
+                        </Form.Item>
+                    </div>
+
+                    {/* <div className="Adjust"> */}
+                        <div className="LastField">
+                        <Form.Item label="Remarks (If any)" name="remarks">
+                            <Input placeholder="Enter your Remarks" />
+                        </Form.Item>
+                        </div>
+
+                     
+                    {/* </div> */}
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-                            Submit
-                        </Button>
-                    </Form.Item>
+                            <Button type="primary" htmlType="submit" >
+                                Submit
+                            </Button>
+                        </Form.Item>
                 </Form>
+
             </div>
         </>
     )

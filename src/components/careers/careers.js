@@ -265,11 +265,11 @@ const Careers = () => {
               </div>
             </Col> */}
               <Col
-                xs={20}
+                xs={24}
                 sm={20}
                 md={22}
-                lg={18}
-                xl={18}
+                lg={24}
+                xl={24}
                 className="my-auto"
                 style={{
                   boxShadow: "0 0 10px 0 rgb(43 52 59 / 32%)",
