@@ -76,6 +76,7 @@ const ApplicationForm = () => {
     const requestBody = {
       fileName: info.file.name,
       mime: fileType,
+      acl: "public-read",
     };
     const response = await fetch(
       `https://napi.prepseed.com/chats/uploadPolicy`,
@@ -90,7 +91,7 @@ const ApplicationForm = () => {
     );
     const data = await response.json();
     if (data) {
-      const finalUrl = data.data.url + data.filePath;
+      const finalUrl = data.data.url + "/" + data.filePath;
       setPhotoLink(finalUrl);
     } else {
       notification.error({ message: "Error while uploading photo" });
@@ -102,6 +103,7 @@ const ApplicationForm = () => {
     const requestBody = {
       fileName: info.file.name,
       mime: fileType,
+      acl: "public-read",
     };
     const response = await fetch(
       `https://napi.prepseed.com/chats/uploadPolicy`,
@@ -116,7 +118,7 @@ const ApplicationForm = () => {
     );
     const data = await response.json();
     if (data) {
-      const finalUrl = data.data.url + data.filePath;
+      const finalUrl = data.data.url + "/" + data.filePath;
       setResumeLink(finalUrl);
     } else {
       notification.error({ message: "Error while uploading Resume" });

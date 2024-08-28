@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Component } from "react";
-import { Button, Col, Row, Space } from "antd";
+import { Button, Col, Row, Spac,Modal,Space } from "antd";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { ImageList } from "@mui/material";
@@ -161,6 +161,7 @@ const statslist = [
 
 const Home = () => {
   const [width, setWidth] = useState(window.innerWidth);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   useEffect(() => {
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
@@ -211,8 +212,30 @@ const Home = () => {
     ],
   };
 
+
+  useEffect(() => {
+    // This will trigger when the component mounts (e.g., page reloads)
+    setIsModalVisible(true);
+  }, []);
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <>
+    <Modal
+        title="Welcome Back!"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Link to="/careers"><button >Click Here</button></Link>
+      </Modal>
       <section className="banner_carousel">
         <div className="container is-fluid">
           {/* <div>
